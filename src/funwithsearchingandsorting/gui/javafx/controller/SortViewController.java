@@ -9,10 +9,12 @@ import funwithsearchingandsorting.bll.exceptions.MyValidationException;
 import funwithsearchingandsorting.gui.javafx.model.IntSortModel;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -55,6 +57,8 @@ public class SortViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         txtSeed.setEditable(checkSeed.isSelected());
+        ObservableList<Series<Integer, Double>> data = intModel.getChartData();
+        lineChartSort.setData(data);
     }
 
     @FXML
@@ -70,13 +74,14 @@ public class SortViewController implements Initializable
         {
             if (checkSeed.isSelected())
             {
-                intModel.performTest(txtArrSizes, spinMinVal.getValue().intValue(), spinMaxVal.getValue().intValue());
-            }
-            else
+                intModel.performTest(txtArrSizes.getText(), spinMinVal.getValue().intValue(), spinMaxVal.getValue().intValue());
+            } else
             {
-                intModel.performTest(txtArrSizes, spinMinVal.getValue().intValue(), spinMaxVal.getValue().intValue());
+                String arrsizes = txtArrSizes.getText();
+                int minVal = spinMinVal.getValue();
+                int maxVal = spinMaxVal.getValue();
+                intModel.performTest(arrsizes, minVal, maxVal);
             }
-
         } catch (MyValidationException e)
         {
             lblValidationErr.setText(e.getMessage());

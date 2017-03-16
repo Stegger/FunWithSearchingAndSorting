@@ -11,5 +11,15 @@ package funwithsearchingandsorting.bll.exceptions;
  */
 public class MyValidationException extends RuntimeException
 {
+
+    public MyValidationException(String message)
+    {
+        super(message);
+    }
+
+    public MyValidationException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
     
 }
