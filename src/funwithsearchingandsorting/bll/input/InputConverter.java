@@ -26,7 +26,7 @@ public class InputConverter
                 lengths[i] = Integer.parseInt(splitted[i].trim());
             } catch (NumberFormatException ne)
             {
-                throw new MyValidationException("The input : \"" + splitted[i] + "\" could not be parsed as a valid length(Integer).", ne);
+                throw new MyValidationException("The input : \"" + splitted[i] + "\" could not be parsed as a valid length (Integer).", ne);
             }
         }
         Arrays.sort(lengths);

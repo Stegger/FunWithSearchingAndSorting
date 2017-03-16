@@ -5,12 +5,39 @@
  */
 package funwithsearchingandsorting.bll.sorting.integers;
 
+import funwithsearchingandsorting.bll.sorting.SortingTypes;
+
 /**
  *
  * @author pgn
  */
 public abstract class IntSortStrategy
 {
+
+    /**
+     * Factory method for the IntSortStrategy types.
+     *
+     * @param sortType
+     * @return
+     */
+    public static IntSortStrategy getSort(SortingTypes sortType)
+    {
+        switch (sortType)
+        {
+            case BUBBLE:
+                return new BubbleSort();
+            case INSERTION:
+                return new InsertionSort();
+            case SELECTION:
+                return new SelectionSort();
+            case QUICK:
+                return new QuickSort();
+            case MERGE:
+                return new MergeSort();
+            default:
+                throw new RuntimeException("Sort method " + sortType + " not yet implemented.");
+        }
+    }
 
     public abstract void sort(int[] data);
 

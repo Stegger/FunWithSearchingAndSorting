@@ -5,17 +5,11 @@
  */
 package funwithsearchingandsorting.gui.javafx.model;
 
-import funwithsearchingandsorting.bll.arrayGen.ArrayFactory;
-import funwithsearchingandsorting.bll.input.InputConverter;
-import funwithsearchingandsorting.bll.sorting.integers.BubbleSort;
-import funwithsearchingandsorting.bll.sorting.integers.InsertionSort;
-import funwithsearchingandsorting.bll.sorting.integers.IntSortStrategy;
-import funwithsearchingandsorting.bll.sorting.integers.SelectionSort;
-import funwithsearchingandsorting.bll.timer.MyTimer;
+import funwithsearchingandsorting.bll.facade.SortFacade;
+import funwithsearchingandsorting.bll.sorting.SortingTypes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 
 /**
@@ -26,10 +20,16 @@ public class IntSortModel
 {
 
     private final ObservableList<XYChart.Series<Integer, Double>> chartData;
+    private final ObservableList<SortingTypes> sortTypes;
+
+    private SortFacade sortFacade;
 
     public IntSortModel()
     {
-        chartData = FXCollections.emptyObservableList();
+        sortFacade = new SortFacade();
+        chartData = FXCollections.observableArrayList();
+        sortTypes = FXCollections.observableArrayList();
+        sortTypes.addAll(sortFacade.getAllSortingTypes());
     }
 
     public ObservableList<XYChart.Series<Integer, Double>> getChartData()
@@ -37,32 +37,51 @@ public class IntSortModel
         return chartData;
     }
 
-    public void performTest(String txtArrSizes, int minVal, int maxVal)
+    public void performTest(ObservableList<SortingTypes> sortingTypes, String txtArrSizes, int minVal, int maxVal)
     {
-        int[] lengths = InputConverter.getArrayLengthsFromInput(txtArrSizes);
-        MyTimer timer = new MyTimer();
+        int[] lengths = sortFacade.getArrayLengthsFromInput(txtArrSizes);
         chartData.clear();
-        IntSortStrategy[] sortingAlgorithms =
+        for (SortingTypes sortType : sortingTypes)
         {
-            new BubbleSort(), new InsertionSort(), new SelectionSort()
-        };
-        for (IntSortStrategy sortingAlgorithm : sortingAlgorithms)
-        {
-            Series<Integer, Double> serie = new Series<>();
-            serie.setName(sortingAlgorithm.toString());
-            ObservableList<Data<Integer, Double>> data = FXCollections.emptyObservableList();
+            XYChart.Series<Integer, Double> serie = new Series<>();
+            serie.setName(sortType.toString());
             for (int n : lengths)
             {
-                int[] target = ArrayFactory.fillArray(n, minVal, maxVal);
-                timer.reset();
-                timer.start();
-                sortingAlgorithm.sort(target);
-                timer.stop();
-                data.add(new Data<>(n, timer.getSeconds()));
+                double time = sortFacade.getTimeToSort(sortType, n, minVal, maxVal);
+                serie.getData().add(new XYChart.Data<>(n, time));
             }
-            serie.setData(data);
             chartData.add(serie);
         }
+    }
+
+    /*
+     public void oldPerformTest(ObservableList<SortingTypes> sortingTypes, String txtArrSizes, int minVal, int maxVal)
+     {
+     int[] lengths = InputConverter.getArrayLengthsFromInput(txtArrSizes);
+     MyTimer timer = new MyTimer();
+     chartData.clear();
+     IntSortStrategy sortingAlgorithm;
+     for (SortingTypes sortType : sortingTypes)
+     {
+     sortingAlgorithm = IntSortStrategy.getSort(sortType);
+     XYChart.Series<Integer, Double> serie = new Series<>();
+     serie.setName(sortType.toString());
+     for (int n : lengths)
+     {
+     int[] target = ArrayFactory.fillArray(n, minVal, maxVal);
+     timer.reset();
+     timer.start();
+     sortingAlgorithm.sort(target);
+     timer.stop();
+     serie.getData().add(new XYChart.Data<>(n, timer.getSeconds()));
+     }
+     chartData.add(serie);
+     }
+     }
+     */
+    public ObservableList<SortingTypes> getSortingTypes()
+    {
+        return sortTypes;
     }
 
 }

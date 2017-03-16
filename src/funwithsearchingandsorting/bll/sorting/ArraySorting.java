@@ -102,11 +102,11 @@ public class ArraySorting
         SearchLogic sl = new SearchLogic();
         for (int i = 1; i < arr.length; i++)
         {
-            int val = arr[i]; // I store the value I'm currently at.
+            int val = arr[i];                                   // I store the value I'm currently at.
             int pos = sl.rangeBinarySearch(arr, 0, i - 1, val); // I find its position in the already sorted array.
-            pos = (pos >= 0) ? pos : -(pos + 1); // I normalize the position to an inbound index
-            shiftRightFrom(arr, pos, i); // I shift all elements to the right to make room for my i value
-            arr[pos] = val; // I insert the value into the position
+            pos = (pos >= 0) ? pos : -(pos + 1);                // I normalize the position to an inbound index
+            shiftRightFrom(arr, pos, i);                        // I shift all elements to the right to make room for my i value
+            arr[pos] = val;                                     // I insert the value into the position
         }
     }
 

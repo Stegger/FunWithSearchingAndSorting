@@ -6,6 +6,7 @@
 package funwithsearchingandsorting.gui.javafx.controller;
 
 import funwithsearchingandsorting.bll.exceptions.MyValidationException;
+import funwithsearchingandsorting.bll.sorting.SortingTypes;
 import funwithsearchingandsorting.gui.javafx.model.IntSortModel;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,9 +15,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 
@@ -42,6 +46,12 @@ public class SortViewController implements Initializable
     private TextField txtSeed;
     @FXML
     private Label lblValidationErr;
+    @FXML
+    private NumberAxis yAxis;
+    @FXML
+    private NumberAxis xAxis;
+    @FXML
+    private ListView<SortingTypes> listSortMethods;
 
     private IntSortModel intModel;
 
@@ -56,7 +66,11 @@ public class SortViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        listSortMethods.setItems(intModel.getSortingTypes());
+        listSortMethods.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         txtSeed.setEditable(checkSeed.isSelected());
+        xAxis.setLabel("n");
+        yAxis.setLabel("Seconds");
         ObservableList<Series<Integer, Double>> data = intModel.getChartData();
         lineChartSort.setData(data);
     }
@@ -74,13 +88,14 @@ public class SortViewController implements Initializable
         {
             if (checkSeed.isSelected())
             {
-                intModel.performTest(txtArrSizes.getText(), spinMinVal.getValue().intValue(), spinMaxVal.getValue().intValue());
-            } else
+                intModel.performTest(listSortMethods.getSelectionModel().getSelectedItems(), txtArrSizes.getText(), spinMinVal.getValue().intValue(), spinMaxVal.getValue().intValue());
+            }
+            else
             {
                 String arrsizes = txtArrSizes.getText();
-                int minVal = spinMinVal.getValue();
-                int maxVal = spinMaxVal.getValue();
-                intModel.performTest(arrsizes, minVal, maxVal);
+                int minVal = Integer.parseInt(spinMinVal.getEditor().getText());
+                int maxVal = Integer.parseInt(spinMaxVal.getEditor().getText());
+                intModel.performTest(listSortMethods.getSelectionModel().getSelectedItems(), arrsizes, minVal, maxVal);
             }
         } catch (MyValidationException e)
         {
