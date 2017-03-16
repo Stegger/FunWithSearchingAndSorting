@@ -7,6 +7,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextField?>
@@ -27,7 +28,7 @@
         </yAxis>
       </LineChart>
       <Separator layoutX="365.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <TitledPane alignment="CENTER" collapsible="false" layoutX="25.0" layoutY="237.0" prefHeight="256.0" prefWidth="338.0" text="Test on int[]" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="262.0">
+      <TitledPane alignment="CENTER" collapsible="false" layoutX="25.0" layoutY="237.0" prefHeight="276.0" prefWidth="338.0" text="Test on int[]" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="262.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="226.0" prefWidth="336.0">
                <children>
@@ -41,11 +42,12 @@
                   <TextField fx:id="txtSeed" layoutX="135.0" layoutY="134.0" AnchorPane.rightAnchor="10.0" />
                   <Button layoutX="247.0" layoutY="178.0" mnemonicParsing="false" onAction="#onBtnTestInt" text="Run test" AnchorPane.rightAnchor="10.0" />
                   <Label fx:id="lblValidationErr" layoutX="34.0" layoutY="183.0" prefHeight="21.0" prefWidth="195.0" text=" " textFill="RED" AnchorPane.leftAnchor="10.0" />
+                  <ProgressBar layoutX="13.0" layoutY="219.0" prefHeight="23.0" prefWidth="303.0" progress="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
-      <TitledPane alignment="CENTER" expanded="false" layoutX="25.0" layoutY="538.0" prefHeight="212.0" prefWidth="338.0" text="Test on Account[]" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="538.0">
+      <TitledPane alignment="CENTER" expanded="false" layoutX="25.0" layoutY="538.0" prefHeight="212.0" prefWidth="338.0" text="Test on Account[]" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="560.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
