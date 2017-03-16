@@ -11,17 +11,17 @@ package funwithsearchingandsorting.bll.sorting;
  */
 public enum SortingTypes
 {
-    
-    BUBBLE, INSERTION, SELECTION, MERGE, QUICK;
-    
+
+    BUBBLE, INSERTION, SELECTION, MERGE, QUICK, BINARY_INSERTION;
+
     public static SortingTypes[] GetAll()
     {
         return new SortingTypes[]
         {
-            SortingTypes.BUBBLE, SortingTypes.INSERTION, SortingTypes.SELECTION, SortingTypes.QUICK, SortingTypes.MERGE
+            SortingTypes.BUBBLE, SortingTypes.INSERTION, SortingTypes.SELECTION, SortingTypes.QUICK, SortingTypes.MERGE, SortingTypes.BINARY_INSERTION
         };
     }
-    
+
     @Override
     public String toString()
     {
@@ -37,6 +37,8 @@ public enum SortingTypes
                 return "Quick Sort";
             case SELECTION:
                 return "Selection Sort";
+            case BINARY_INSERTION:
+                return "Binary Insertion Sort";
             default:
                 return "Unknown Sort";
         }

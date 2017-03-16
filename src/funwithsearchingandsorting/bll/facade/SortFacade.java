@@ -10,6 +10,7 @@ import funwithsearchingandsorting.bll.input.InputConverter;
 import funwithsearchingandsorting.bll.sorting.SortingTypes;
 import funwithsearchingandsorting.bll.sorting.integers.IntSortStrategy;
 import funwithsearchingandsorting.bll.timer.MyTimer;
+import funwithsearchingandsorting.bll.timer.SortTimer;
 
 /**
  *
@@ -28,15 +29,16 @@ public class SortFacade
         return getTimeToSort(sortType, n, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
+    public double getTimeToSort(SortingTypes sortType, int n, int minVal, int maxVal, int seed)
+    {
+        int[] target = ArrayFactory.fillArray(n, minVal, maxVal, seed);
+        return new SortTimer().getTimeForSort(sortType, target);
+    }
+
     public double getTimeToSort(SortingTypes sortType, int n, int minVal, int maxVal)
     {
-        IntSortStrategy sortingAlgorithm = IntSortStrategy.getSort(sortType);
         int[] target = ArrayFactory.fillArray(n, minVal, maxVal);
-        MyTimer timer = new MyTimer();
-        timer.start();
-        sortingAlgorithm.sort(target);
-        timer.stop();
-        return timer.getSeconds();
+        return new SortTimer().getTimeForSort(sortType, target);
     }
 
     public SortingTypes[] getAllSortingTypes()

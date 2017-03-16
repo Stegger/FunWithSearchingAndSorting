@@ -7,6 +7,7 @@ package funwithsearchingandsorting.gui.javafx.model;
 
 import funwithsearchingandsorting.bll.facade.SortFacade;
 import funwithsearchingandsorting.bll.sorting.SortingTypes;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
@@ -37,9 +38,9 @@ public class IntSortModel
         return chartData;
     }
 
-    public void performTest(ObservableList<SortingTypes> sortingTypes, String txtArrSizes, int minVal, int maxVal)
+    public void performTest(List<SortingTypes> sortingTypes, String arrsizes, int minVal, int maxVal)
     {
-        int[] lengths = sortFacade.getArrayLengthsFromInput(txtArrSizes);
+        int[] lengths = sortFacade.getArrayLengthsFromInput(arrsizes);
         chartData.clear();
         for (SortingTypes sortType : sortingTypes)
         {
@@ -82,6 +83,23 @@ public class IntSortModel
     public ObservableList<SortingTypes> getSortingTypes()
     {
         return sortTypes;
+    }
+
+    public void performTest(List<SortingTypes> sortTypes, String arrsizes, int minVal, int maxVal, int seed)
+    {
+        int[] lengths = sortFacade.getArrayLengthsFromInput(arrsizes);
+        chartData.clear();
+        for (SortingTypes sortType : sortTypes)
+        {
+            XYChart.Series<Integer, Double> serie = new Series<>();
+            serie.setName(sortType.toString());
+            for (int n : lengths)
+            {
+                double time = sortFacade.getTimeToSort(sortType, n, minVal, maxVal, seed);
+                serie.getData().add(new XYChart.Data<>(n, time));
+            }
+            chartData.add(serie);
+        }
     }
 
 }

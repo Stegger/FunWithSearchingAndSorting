@@ -34,6 +34,8 @@ public abstract class IntSortStrategy
                 return new QuickSort();
             case MERGE:
                 return new MergeSort();
+            case BINARY_INSERTION:
+                return new BinaryInsertionSort();
             default:
                 throw new RuntimeException("Sort method " + sortType + " not yet implemented.");
         }
