@@ -5,7 +5,6 @@
  */
 package funwithsearchingandsorting.gui.javafx.controller;
 
-import funwithsearchingandsorting.bll.exceptions.MyValidationException;
 import funwithsearchingandsorting.bll.sorting.SortingTypes;
 import funwithsearchingandsorting.gui.javafx.model.IntSortModel;
 import java.net.URL;
@@ -32,7 +31,7 @@ import javafx.scene.control.TextField;
  */
 public class SortViewController implements Initializable
 {
-    
+
     @FXML
     private LineChart<Integer, Double> lineChartSort;
     @FXML
@@ -53,9 +52,9 @@ public class SortViewController implements Initializable
     private NumberAxis xAxis;
     @FXML
     private ListView<SortingTypes> listSortMethods;
-    
+
     private IntSortModel intModel;
-    
+
     public SortViewController()
     {
         intModel = new IntSortModel();
@@ -75,13 +74,13 @@ public class SortViewController implements Initializable
         ObservableList<Series<Integer, Double>> data = intModel.getChartData();
         lineChartSort.setData(data);
     }
-    
+
     @FXML
     private void onCheckSeed(ActionEvent event)
     {
         txtSeed.setEditable(checkSeed.isSelected());
     }
-    
+
     @FXML
     private void onBtnTestInt(ActionEvent event)
     {
@@ -96,8 +95,7 @@ public class SortViewController implements Initializable
             {
                 int seed = Integer.parseInt(txtSeed.getText().trim());
                 intModel.performTest(sortTypes, arrsizes, minVal, maxVal, seed);
-            }
-            else
+            } else
             {
                 intModel.performTest(sortTypes, arrsizes, minVal, maxVal);
             }
@@ -106,5 +104,5 @@ public class SortViewController implements Initializable
             lblValidationErr.setText(ex.getMessage());
         }
     }
-    
+
 }

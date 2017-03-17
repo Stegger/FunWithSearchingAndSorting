@@ -41,8 +41,7 @@ public class SortTask extends Task<Double>
         if (seed != 0)
         {
             return sortFacade.getTimeToSort(sortType, n, minVal, maxVal);
-        }
-        else
+        } else
         {
             return sortFacade.getTimeToSort(sortType, n, minVal, maxVal, seed);
         }

@@ -28,10 +28,10 @@ public class MergeSort extends IntSortStrategy
         }
     }
 
-    private void merge(int[] arr, int[] left, int[] right)
+    private void merge(int[] data, int[] left, int[] right)
     {
         int totElem = left.length + right.length;
-        //int[] arr = new int[totElem];
+        //int[] data = new int[totElem];
         int i, li, ri;
         i = li = ri = 0;
         while (i < totElem)
@@ -41,34 +41,30 @@ public class MergeSort extends IntSortStrategy
             {
                 if (left[li] < right[ri])
                 {
-                    arr[i] = left[li];
+                    data[i] = left[li];
                     i++;
                     li++;
-                }
-                else
+                } else
                 {
-                    arr[i] = right[ri];
+                    data[i] = right[ri];
                     i++;
                     ri++;
                 }
-            }
-            else
+            } else // We add any leftovers from the subarrays to the main array:
             {
-                // We add any leftovers from the subarrays to the main array:
                 if (li >= left.length)
                 {
                     while (ri < right.length)
                     {
-                        arr[i] = right[ri];
+                        data[i] = right[ri];
                         i++;
                         ri++;
                     }
-                }
-                else if (ri >= right.length)
+                } else if (ri >= right.length)
                 {
                     while (li < left.length)
                     {
-                        arr[i] = left[li];
+                        data[i] = left[li];
                         li++;
                         i++;
                     }

@@ -29,8 +29,7 @@ public class IntSortModel
     {
         sortFacade = new SortFacade();
         chartData = FXCollections.observableArrayList();
-        sortTypes = FXCollections.observableArrayList();
-        sortTypes.addAll(sortFacade.getAllSortingTypes());
+        sortTypes = FXCollections.observableArrayList(sortFacade.getAllSortingTypes());
     }
 
     public ObservableList<XYChart.Series<Integer, Double>> getChartData()
