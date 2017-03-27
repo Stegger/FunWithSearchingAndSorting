@@ -36,6 +36,10 @@ public abstract class IntSortStrategy
                 return new MergeSort();
             case BINARY_INSERTION:
                 return new BinaryInsertionSort();
+            case JAVA_ARRAY:
+                return new JavaArraySort();
+            case JAVA_ARRAY_PARALLEL:
+                return new JavaParallelArraySort();
             default:
                 throw new RuntimeException("Sort method " + sortType + " not yet implemented.");
         }
