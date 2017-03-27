@@ -19,7 +19,7 @@ public class AccountAmountComparator implements Comparator<Account>
     public int compare(Account o1, Account o2)
     {
         //TODO Will this follow 0.5 rounding rules?
-        return (int) (o1.getBalance() - o2.getBalance());
+        return Double.compare(o1.getBalance(), o2.getBalance());
     }
 
 }

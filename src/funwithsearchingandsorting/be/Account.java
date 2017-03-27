@@ -5,6 +5,8 @@
  */
 package funwithsearchingandsorting.be;
 
+import java.util.Comparator;
+
 /**
  *
  * @author Stegger
@@ -50,8 +52,18 @@ public class Account implements Comparable<Account>
 
     @Override
     public int compareTo(Account o)
-    {                    
+    {
         return (int) (this.accNr - o.getAccNr());
     }
 
+    public static Comparator<Account> NameAndAmountComparator = new Comparator<Account>()
+    {
+        @Override
+        public int compare(Account o1, Account o2)
+        {
+            int n = o1.name.compareToIgnoreCase(o2.name);
+            return n != 0 ? n : Double.compare(o1.balance, o2.balance);
+        }
+    };
+    
 }

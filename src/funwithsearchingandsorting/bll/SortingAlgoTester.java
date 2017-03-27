@@ -5,9 +5,14 @@
  */
 package funwithsearchingandsorting.bll;
 
+import funwithsearchingandsorting.be.Account;
 import funwithsearchingandsorting.bll.timer.MyTimer;
 import funwithsearchingandsorting.bll.arrayGen.ArrayFactory;
+import funwithsearchingandsorting.bll.comparators.AccountAmountComparator;
 import funwithsearchingandsorting.bll.sorting.ArraySorting;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -16,6 +21,38 @@ import java.util.HashMap;
  */
 public class SortingAlgoTester
 {
+
+    public static void FunWithJavasSort()
+    {
+        Account[] accounts_one = new Account[]
+        {
+            new Account(2, 5000, "Personal"), new Account(1, -100, "Checking"), new Account(3, 0, "Savings")
+        };
+
+        Arrays.sort(accounts_one);
+        Arrays.sort(accounts_one, new AccountAmountComparator());
+
+//        for (Account account : accounts_one)
+//        {
+//            System.out.println(account.getAccNr() + ": " + account.getName() + " - " + account.getBalance() + "$");
+//        }
+
+
+        ArrayList<Account> accounts_two = new ArrayList<>();
+        accounts_two.add(new Account(4, 100000, "Savings"));
+        accounts_two.add(new Account(5, -1500, "Checking"));
+        accounts_two.add(new Account(9, -15900, "Checking"));
+        accounts_two.add(new Account(6, -159, "Checking"));
+        accounts_two.add(new Account(7, 500, "Savings"));
+
+        Collections.sort(accounts_two, Account.NameAndAmountComparator);
+
+        for (Account account : accounts_two)
+        {
+            System.out.println(account.getAccNr() + ": " + account.getName() + " - " + account.getBalance() + "$");
+        }
+
+    }
 
     public static void findOptimalThresholdQuickSortInsertionSort()
     {
@@ -61,7 +98,7 @@ public class SortingAlgoTester
 
     public static void main(String[] args)
     {
-        SortingAlgoTester.findOptimalThresholdQuickSortInsertionSort();
+        SortingAlgoTester.FunWithJavasSort();
     }
 
 }
