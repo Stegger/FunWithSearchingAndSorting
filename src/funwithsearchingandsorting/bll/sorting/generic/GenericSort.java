@@ -14,6 +14,7 @@ import java.util.Comparator;
  */
 public abstract class GenericSort<T>
 {
+    
 
     public abstract <T extends Comparable<? super T>> void sort(T[] data);
 
