@@ -5,15 +5,19 @@
  */
 package funwithsearchingandsorting.bll.sorting.generic;
 
+import java.util.Comparator;
+
 /**
  *
  * @author pgn
  * @param <T>
  */
-public abstract class GenericSort<T extends Comparable<T>>
+public abstract class GenericSort<T>
 {
 
-    public abstract void sort(T[] data);
+    public abstract <T extends Comparable<? super T>> void sort(T[] data);
+
+    public abstract void sort(T[] data, Comparator<? super T> c);
 
     /**
      * Swaps the elements at position a and b in the array data.
@@ -22,9 +26,9 @@ public abstract class GenericSort<T extends Comparable<T>>
      * @param a    index of the first element.
      * @param b    index of the second element.
      */
-    protected void swap(T[] data, int a, int b)
+    protected void swap(Object[] data, int a, int b)
     {
-        T tmp = data[a];
+        Object tmp = data[a];
         data[a] = data[b];
         data[b] = tmp;
     }

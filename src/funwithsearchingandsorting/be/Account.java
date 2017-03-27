@@ -49,7 +49,7 @@ public class Account implements Comparable<Account>
     {
         return accNr;
     }
-
+    
     @Override
     public int compareTo(Account o)
     {

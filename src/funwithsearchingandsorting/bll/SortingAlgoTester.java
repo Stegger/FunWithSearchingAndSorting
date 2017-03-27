@@ -28,7 +28,7 @@ public class SortingAlgoTester
         {
             new Account(2, 5000, "Personal"), new Account(1, -100, "Checking"), new Account(3, 0, "Savings")
         };
-
+        
         Arrays.sort(accounts_one);
         Arrays.sort(accounts_one, new AccountAmountComparator());
 

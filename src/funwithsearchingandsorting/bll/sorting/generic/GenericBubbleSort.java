@@ -5,16 +5,43 @@
  */
 package funwithsearchingandsorting.bll.sorting.generic;
 
+import java.util.Comparator;
+
 /**
  *
  * @author pgn
  * @param <T>
  */
-public class GenericBubbleSort<T extends Comparable<T>> extends GenericSort<T>
+public class GenericBubbleSort<T> extends GenericSort<T>
 {
 
     @Override
-    public void sort(T[] data)
+    public <T extends Comparable<? super T>> void sort(T[] data)
+    {
+        int n = data.length;
+        
+        while (n > 1)
+        {
+            boolean swapped = false;
+            for (int i = 1; i < n; i++)
+            {
+
+                if (data[i].compareTo(data[i - 1]) < 0)
+                {
+                    swap(data, i, i - 1);
+                    swapped = true;
+                }
+            }
+            if (!swapped)
+            {
+                break;
+            }
+            n--;
+        }
+    }
+
+    @Override
+    public void sort(T[] data, Comparator<? super T> c)
     {
         int n = data.length;
 
@@ -24,7 +51,7 @@ public class GenericBubbleSort<T extends Comparable<T>> extends GenericSort<T>
             for (int i = 1; i < n; i++)
             {
 
-                if (data[i].compareTo(data[i - 1]) < 0)
+                if (c.compare(data[i], data[i - 1]) < 0)
                 {
                     swap(data, i, i - 1);
                     swapped = true;
