@@ -5,6 +5,7 @@
  */
 package funwithsearchingandsorting.bll.sorting.generic;
 
+import funwithsearchingandsorting.bll.sorting.SortingTypes;
 import java.util.Comparator;
 
 /**
@@ -19,7 +20,7 @@ public class GenericBubbleSort<T> extends GenericSort<T>
     public <T extends Comparable<? super T>> void sort(T[] data)
     {
         int n = data.length;
-        
+
         while (n > 1)
         {
             boolean swapped = false;
