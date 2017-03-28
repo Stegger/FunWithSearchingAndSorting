@@ -6,7 +6,8 @@
 package funwithsearchingandsorting.gui.javafx.model;
 
 import funwithsearchingandsorting.bll.facade.SortFacade;
-import funwithsearchingandsorting.bll.sorting.SortingTypes;
+import funwithsearchingandsorting.bll.sorting.DataType;
+import funwithsearchingandsorting.bll.sorting.SortingAlgorithm;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +22,7 @@ public class IntSortModel
 {
 
     private final ObservableList<XYChart.Series<Integer, Double>> chartData;
-    private final ObservableList<SortingTypes> sortTypes;
+    private final ObservableList<SortingAlgorithm> sortTypes;
 
     private SortFacade sortFacade;
 
@@ -37,64 +38,39 @@ public class IntSortModel
         return chartData;
     }
 
-    public void performTest(List<SortingTypes> sortingTypes, String arrsizes, int minVal, int maxVal)
+    public void performTest(List<SortingAlgorithm> sortingTypes, String arrsizes, int minVal, int maxVal, DataType dataType)
     {
         int[] lengths = sortFacade.getArrayLengthsFromInput(arrsizes);
         chartData.clear();
-        for (SortingTypes sortType : sortingTypes)
+        for (SortingAlgorithm sortType : sortingTypes)
         {
             XYChart.Series<Integer, Double> serie = new Series<>();
             serie.setName(sortType.toString());
             for (int n : lengths)
             {
-                double time = sortFacade.getTimeToSort(sortType, n, minVal, maxVal);
+                double time = sortFacade.getTimeToSort(sortType, n, minVal, maxVal, dataType);
                 serie.getData().add(new XYChart.Data<>(n, time));
             }
             chartData.add(serie);
         }
     }
 
-    /*
-     public void oldPerformTest(ObservableList<SortingTypes> sortingTypes, String txtArrSizes, int minVal, int maxVal)
-     {
-     int[] lengths = InputConverter.getArrayLengthsFromInput(txtArrSizes);
-     MyTimer timer = new MyTimer();
-     chartData.clear();
-     IntSortStrategy sortingAlgorithm;
-     for (SortingTypes sortType : sortingTypes)
-     {
-     sortingAlgorithm = IntSortStrategy.getSort(sortType);
-     XYChart.Series<Integer, Double> serie = new Series<>();
-     serie.setName(sortType.toString());
-     for (int n : lengths)
-     {
-     int[] target = ArrayFactory.fillArray(n, minVal, maxVal);
-     timer.reset();
-     timer.start();
-     sortingAlgorithm.sort(target);
-     timer.stop();
-     serie.getData().add(new XYChart.Data<>(n, timer.getSeconds()));
-     }
-     chartData.add(serie);
-     }
-     }
-     */
-    public ObservableList<SortingTypes> getSortingTypes()
+    public ObservableList<SortingAlgorithm> getSortingTypes()
     {
         return sortTypes;
     }
 
-    public void performTest(List<SortingTypes> sortTypes, String arrsizes, int minVal, int maxVal, int seed)
+    public void performTest(List<SortingAlgorithm> sortTypes, String arrsizes, int minVal, int maxVal, DataType dataType, int seed)
     {
         int[] lengths = sortFacade.getArrayLengthsFromInput(arrsizes);
         chartData.clear();
-        for (SortingTypes sortType : sortTypes)
+        for (SortingAlgorithm sortType : sortTypes)
         {
             XYChart.Series<Integer, Double> serie = new Series<>();
             serie.setName(sortType.toString());
             for (int n : lengths)
             {
-                double time = sortFacade.getTimeToSort(sortType, n, minVal, maxVal, seed);
+                double time = sortFacade.getTimeToSort(sortType, n, minVal, maxVal, dataType, seed);
                 serie.getData().add(new XYChart.Data<>(n, time));
             }
             chartData.add(serie);

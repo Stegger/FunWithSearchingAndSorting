@@ -5,7 +5,7 @@
  */
 package funwithsearchingandsorting.bll.sorting.integers;
 
-import funwithsearchingandsorting.bll.sorting.SortingTypes;
+import funwithsearchingandsorting.bll.sorting.SortingAlgorithm;
 
 /**
  *
@@ -20,7 +20,7 @@ public abstract class IntSortStrategy
      * @param sortType
      * @return
      */
-    public static IntSortStrategy getSort(SortingTypes sortType)
+    public static IntSortStrategy getSort(SortingAlgorithm sortType)
     {
         switch (sortType)
         {
@@ -36,9 +36,9 @@ public abstract class IntSortStrategy
                 return new MergeSort();
             case BINARY_INSERTION:
                 return new BinaryInsertionSort();
-            case JAVA_ARRAY:
+            case JAVA:
                 return new JavaArraySort();
-            case JAVA_ARRAY_PARALLEL:
+            case JAVA_PARALLEL:
                 return new JavaParallelArraySort();
             default:
                 throw new RuntimeException("Sort method " + sortType + " not yet implemented.");

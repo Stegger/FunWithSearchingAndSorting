@@ -6,7 +6,8 @@
 package funwithsearchingandsorting.gui.javafx.controller;
 
 import funwithsearchingandsorting.bll.facade.SortFacade;
-import funwithsearchingandsorting.bll.sorting.SortingTypes;
+import funwithsearchingandsorting.bll.sorting.DataType;
+import funwithsearchingandsorting.bll.sorting.SortingAlgorithm;
 import javafx.concurrent.Task;
 
 /**
@@ -17,10 +18,11 @@ public class SortTask extends Task<Double>
 {
 
     private SortFacade sortFacade;
-    private SortingTypes sortType;
+    private SortingAlgorithm sortType;
     private int n, minVal, maxVal, seed;
+    private DataType dataType;
 
-    public SortTask(SortFacade sortFacade, SortingTypes sortType, int n, int minVal, int maxVal, int seed)
+    public SortTask(SortFacade sortFacade, SortingAlgorithm sortType, int n, int minVal, int maxVal, DataType dataType, int seed)
     {
         this.sortFacade = sortFacade;
         this.sortType = sortType;
@@ -28,11 +30,12 @@ public class SortTask extends Task<Double>
         this.minVal = minVal;
         this.maxVal = maxVal;
         this.seed = seed;
+        this.dataType = dataType;
     }
 
-    public SortTask(SortFacade sortFacade, SortingTypes sortType, int n, int minVal, int maxVal)
+    public SortTask(SortFacade sortFacade, SortingAlgorithm sortType, int n, int minVal, int maxVal, DataType dataType)
     {
-        this(sortFacade, sortType, n, minVal, maxVal, 0);
+        this(sortFacade, sortType, n, minVal, maxVal, dataType, 0);
     }
 
     @Override
@@ -40,10 +43,11 @@ public class SortTask extends Task<Double>
     {
         if (seed != 0)
         {
-            return sortFacade.getTimeToSort(sortType, n, minVal, maxVal);
-        } else
+            return sortFacade.getTimeToSort(sortType, n, minVal, maxVal, dataType);
+        }
+        else
         {
-            return sortFacade.getTimeToSort(sortType, n, minVal, maxVal, seed);
+            return sortFacade.getTimeToSort(sortType, n, minVal, maxVal, dataType, seed);
         }
     }
 

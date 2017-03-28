@@ -5,12 +5,15 @@
  */
 package funwithsearchingandsorting.bll.facade;
 
+import funwithsearchingandsorting.be.Account;
+import funwithsearchingandsorting.bll.arrayGen.AccountArrayGenerator;
 import funwithsearchingandsorting.bll.arrayGen.ArrayFactory;
 import funwithsearchingandsorting.bll.input.InputConverter;
-import funwithsearchingandsorting.bll.sorting.SortingTypes;
-import funwithsearchingandsorting.bll.sorting.integers.IntSortStrategy;
-import funwithsearchingandsorting.bll.timer.MyTimer;
+import funwithsearchingandsorting.bll.sorting.DataType;
+import funwithsearchingandsorting.bll.sorting.SortingAlgorithm;
 import funwithsearchingandsorting.bll.timer.SortTimer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,26 +27,62 @@ public class SortFacade
         return InputConverter.getArrayLengthsFromInput(txtArrSizes);
     }
 
-    public double getTimeToSort(SortingTypes sortType, int n)
+    public double getTimeToSort(SortingAlgorithm sortType, int n, DataType dataType)
     {
-        return getTimeToSort(sortType, n, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return getTimeToSort(sortType, n, Integer.MIN_VALUE, Integer.MAX_VALUE, dataType);
     }
 
-    public double getTimeToSort(SortingTypes sortType, int n, int minVal, int maxVal, int seed)
+    public double getTimeToSort(SortingAlgorithm sortType, int n, int minVal, int maxVal, DataType dataType, int seed)
     {
-        int[] target = ArrayFactory.fillArray(n, minVal, maxVal, seed);
-        return new SortTimer().getTimeForSort(sortType, target);
+        if (dataType == DataType.INT)
+        {
+            int[] target = ArrayFactory.fillArray(n, minVal, maxVal, seed);
+            return new SortTimer().getTimeForSort(sortType, target);
+        }
+        else if (dataType == DataType.GENERIC_OBJECT)
+        {
+            try
+            {
+                Account[] target = AccountArrayGenerator.fillArray(n, minVal, maxVal, seed);
+                return new SortTimer().getTimeForSort(sortType, target);
+            } catch (Exception ex)
+            {
+                throw new RuntimeException("Could not create or sort Account array.", ex);
+            }
+        }
+        else
+        {
+            throw new IllegalArgumentException("Unknown datatype. Can only sort Accounts and integers.");
+        }
     }
 
-    public double getTimeToSort(SortingTypes sortType, int n, int minVal, int maxVal)
+    public double getTimeToSort(SortingAlgorithm sortType, int n, int minVal, int maxVal, DataType dataType)
     {
-        int[] target = ArrayFactory.fillArray(n, minVal, maxVal);
-        return new SortTimer().getTimeForSort(sortType, target);
+        if (dataType == DataType.INT)
+        {
+            int[] target = ArrayFactory.fillArray(n, minVal, maxVal);
+            return new SortTimer().getTimeForSort(sortType, target);
+        }
+        else if (dataType == DataType.GENERIC_OBJECT)
+        {
+            try
+            {
+                Account[] target = AccountArrayGenerator.fillArray(n, minVal, maxVal);
+                return new SortTimer().getTimeForSort(sortType, target);
+            } catch (Exception ex)
+            {
+                throw new RuntimeException("Could not create or sort Account array.", ex);
+            }
+        }
+        else
+        {
+            throw new IllegalArgumentException("Unknown datatype. Can only sort Accounts and integers.");
+        }
     }
 
-    public SortingTypes[] getAllSortingTypes()
+    public SortingAlgorithm[] getAllSortingTypes()
     {
-        return SortingTypes.GetAll();
+        return SortingAlgorithm.GetAll();
     }
 
 }

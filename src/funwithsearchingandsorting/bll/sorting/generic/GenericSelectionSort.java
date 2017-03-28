@@ -9,33 +9,27 @@ import java.util.Comparator;
 
 /**
  *
- * @author pgn
+ * @author Stegger
  */
-public class GenericBubbleSort extends GenericSort
+public class GenericSelectionSort extends GenericSort
 {
 
     @Override
     public <T> void sort(T[] data, Comparator<? super T> c)
     {
-        int n = data.length;
-
-        while (n > 1)
+        for (int i = 0; i < data.length; i++)
         {
-            boolean swapped = false;
-            for (int i = 1; i < n; i++)
+            int min = i;
+            int j = i + 1;
+            while (j < data.length)
             {
-
-                if (c.compare(data[i], data[i - 1]) < 0)
+                if (c.compare(data[j], data[min]) < 0)
                 {
-                    swap(data, i, i - 1);
-                    swapped = true;
+                    min = j;
                 }
+                j++;
             }
-            if (!swapped)
-            {
-                break;
-            }
-            n--;
+            swap(data, min, i);
         }
     }
 

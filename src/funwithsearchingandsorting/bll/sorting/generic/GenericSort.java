@@ -10,22 +10,44 @@ import java.util.Comparator;
 /**
  *
  * @author pgn
- * @param <T>
  */
-public abstract class GenericSort<T>
+public abstract class GenericSort
 {
-    
 
-    public abstract <T extends Comparable<? super T>> void sort(T[] data);
+    /**
+     * Sorts the array using the Comparable interface.
+     *
+     * @param <T> The type of data.
+     * @param data The Collection of data.
+     */
+    public <T extends Comparable<? super T>> void sort(T[] data)
+    {
+        Comparator<T> comparableComparator = new Comparator<T>()
+        {
+            @Override
+            public int compare(T o1, T o2)
+            {
+                return o1.compareTo(o2);
+            }
+        };
+        sort(data, comparableComparator);
+    }
 
-    public abstract void sort(T[] data, Comparator<? super T> c);
+    /**
+     * Sorts the array using the given comparator.
+     *
+     * @param <T> The type of the data.
+     * @param data The array to sort.
+     * @param c The comparator used for sortiing.
+     */
+    public abstract <T> void sort(T[] data, Comparator<? super T> c);
 
     /**
      * Swaps the elements at position a and b in the array data.
      *
      * @param data the array to swap elements in.
-     * @param a    index of the first element.
-     * @param b    index of the second element.
+     * @param a index of the first element.
+     * @param b index of the second element.
      */
     protected void swap(Object[] data, int a, int b)
     {

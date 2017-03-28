@@ -5,7 +5,9 @@
  */
 package funwithsearchingandsorting.bll.timer;
 
-import funwithsearchingandsorting.bll.sorting.SortingTypes;
+import funwithsearchingandsorting.bll.sorting.SortingAlgorithm;
+import funwithsearchingandsorting.bll.sorting.generic.GenericSort;
+import funwithsearchingandsorting.bll.sorting.generic.GenericSortFactory;
 import funwithsearchingandsorting.bll.sorting.integers.IntSortStrategy;
 
 /**
@@ -15,7 +17,17 @@ import funwithsearchingandsorting.bll.sorting.integers.IntSortStrategy;
 public class SortTimer
 {
 
-    public double getTimeForSort(SortingTypes sortType, int[] target)
+    public <T extends Comparable<? super T>> double getTimeForSort(SortingAlgorithm sortType, T[] target) throws InstantiationException, IllegalAccessException
+    {
+        GenericSort sortingAlgorithm = GenericSortFactory.getGenericSort(sortType);
+        MyTimer timer = new MyTimer();
+        timer.start();
+        sortingAlgorithm.sort(target);
+        timer.stop();
+        return timer.getSeconds();
+    }
+
+    public double getTimeForSort(SortingAlgorithm sortType, int[] target)
     {
         IntSortStrategy sortingAlgorithm = IntSortStrategy.getSort(sortType);
         MyTimer timer = new MyTimer();

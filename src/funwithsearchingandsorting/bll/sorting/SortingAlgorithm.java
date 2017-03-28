@@ -9,16 +9,16 @@ package funwithsearchingandsorting.bll.sorting;
  *
  * @author Stegger
  */
-public enum SortingTypes
+public enum SortingAlgorithm
 {
 
-    BUBBLE, INSERTION, SELECTION, MERGE, QUICK, BINARY_INSERTION, JAVA_ARRAY, JAVA_ARRAY_PARALLEL;
+    BUBBLE, INSERTION, SELECTION, MERGE, QUICK, BINARY_INSERTION, JAVA, JAVA_PARALLEL;
 
-    public static SortingTypes[] GetAll()
+    public static SortingAlgorithm[] GetAll()
     {
-        return new SortingTypes[]
+        return new SortingAlgorithm[]
         {
-            SortingTypes.BUBBLE, SortingTypes.INSERTION, SortingTypes.SELECTION, SortingTypes.BINARY_INSERTION, SortingTypes.QUICK, SortingTypes.MERGE, SortingTypes.JAVA_ARRAY, SortingTypes.JAVA_ARRAY_PARALLEL
+            SortingAlgorithm.BUBBLE, SortingAlgorithm.INSERTION, SortingAlgorithm.SELECTION, SortingAlgorithm.BINARY_INSERTION, SortingAlgorithm.QUICK, SortingAlgorithm.MERGE, SortingAlgorithm.JAVA, SortingAlgorithm.JAVA_PARALLEL
         };
     }
 
@@ -39,10 +39,10 @@ public enum SortingTypes
                 return "Selection Sort";
             case BINARY_INSERTION:
                 return "Binary Insertion Sort";
-            case JAVA_ARRAY:
-                return "Java Arrays Sort";
-            case JAVA_ARRAY_PARALLEL:
-                return "Java Arrays Parallel Sort";
+            case JAVA:
+                return "Java Sort";
+            case JAVA_PARALLEL:
+                return "Java Parallel Sort";
             default:
                 return "Unknown Sort";
         }

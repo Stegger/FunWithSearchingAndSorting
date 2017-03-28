@@ -5,10 +5,7 @@
  */
 package funwithsearchingandsorting.bll.sorting.generic;
 
-import funwithsearchingandsorting.be.Account;
-import funwithsearchingandsorting.bll.sorting.SortingTypes;
-import java.util.HashMap;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import funwithsearchingandsorting.bll.sorting.SortingAlgorithm;
 
 /**
  *
@@ -17,35 +14,29 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class GenericSortFactory
 {
 
-    public static <T> GenericSort<T> getGenericSort(SortingTypes type) throws InstantiationException, IllegalAccessException
+    public static GenericSort getGenericSort(SortingAlgorithm type) throws InstantiationException, IllegalAccessException
     {
         switch (type)
         {
             case BUBBLE:
-                return new GenericBubbleSort<T>();
+                return new GenericBubbleSort();
+            case BINARY_INSERTION:
+                return new GenericBinaryInsertionSort();
+            case INSERTION:
+                return new GenericInsertionSort();
+            case JAVA:
+                return new GenericJavaSort();
+            case JAVA_PARALLEL:
+                return new GenericParallelJavaSort();
+            case MERGE:
+                return new GenericMergeSort();
+            case QUICK:
+                return new GenericQuickSort();
+            case SELECTION:
+                return new GenericSelectionSort();
             default:
                 throw new IllegalArgumentException("Sort type \"" + type.name() + "\" not implemented yet.");
         }
-    }
-
-    public static void main(String[] args) throws InstantiationException, IllegalAccessException
-    {
-        System.out.println("test101");
-
-        GenericSort<Account> sorter = GenericSortFactory.getGenericSort(SortingTypes.BUBBLE);
-        
-        Account[] accs = new Account[]
-        {
-            new Account(2, 100, "Savings"), new Account(1, -10000, "Checkings")
-        };
-
-        sorter.sort(accs);
-
-        for (Account acc : accs)
-        {
-            System.out.println("Nr: " + acc.getAccNr() + ", Balance: " + acc.getBalance() + ", name: " + acc.getName());
-        }
-
     }
 
 }

@@ -14,56 +14,48 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="548.0" prefWidth="896.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="funwithsearchingandsorting.gui.javafx.controller.SortViewController">
+<AnchorPane id="AnchorPane" prefHeight="794.0" prefWidth="896.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="funwithsearchingandsorting.gui.javafx.controller.SortViewController">
     <stylesheets>
         <URL value="@/funwithsearchingandsorting/gui/javafx/style/Style.css" />
     </stylesheets>
-   <children>
-      <LineChart fx:id="lineChartSort" layoutX="385.0" layoutY="63.0" legendSide="RIGHT" title="Sorting results" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
-        <xAxis>
-          <NumberAxis side="BOTTOM" fx:id="xAxis" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis fx:id="yAxis" side="LEFT" />
-        </yAxis>
-      </LineChart>
-      <Separator layoutX="365.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <TitledPane alignment="CENTER" collapsible="false" layoutX="25.0" layoutY="237.0" prefHeight="276.0" prefWidth="338.0" text="Test on int[]" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="262.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="226.0" prefWidth="336.0">
-               <children>
-                  <Label layoutX="14.0" layoutY="14.0" text="Min value:" AnchorPane.leftAnchor="10.0" />
-                  <Spinner fx:id="spinMinVal" editable="true" layoutX="135.0" layoutY="9.0" AnchorPane.rightAnchor="10.0" />
-                  <Spinner fx:id="spinMaxVal" editable="true" layoutX="135.0" layoutY="47.0" AnchorPane.rightAnchor="10.0" />
-                  <Label layoutX="14.0" layoutY="52.0" text="Max value:" AnchorPane.leftAnchor="10.0" />
-                  <TextField fx:id="txtArrSizes" layoutX="135.0" layoutY="90.0" AnchorPane.rightAnchor="10.0" />
-                  <Label layoutX="14.0" layoutY="95.0" text="Array sizes:" AnchorPane.leftAnchor="10.0" />
-                  <CheckBox fx:id="checkSeed" layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#onCheckSeed" text="Use seed:" AnchorPane.leftAnchor="10.0" />
-                  <TextField fx:id="txtSeed" layoutX="135.0" layoutY="134.0" AnchorPane.rightAnchor="10.0" />
-                  <Button layoutX="247.0" layoutY="178.0" mnemonicParsing="false" onAction="#onBtnTestInt" text="Run test" AnchorPane.rightAnchor="10.0" />
-                  <Label fx:id="lblValidationErr" layoutX="34.0" layoutY="183.0" prefHeight="21.0" prefWidth="195.0" text=" " textFill="RED" AnchorPane.leftAnchor="10.0" />
-                  <ProgressBar layoutX="13.0" layoutY="219.0" prefHeight="23.0" prefWidth="303.0" progress="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
-      <TitledPane alignment="CENTER" expanded="false" layoutX="25.0" layoutY="538.0" prefHeight="212.0" prefWidth="338.0" text="Test on Account[]" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="560.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="80.0" layoutY="80.0" text="404 Server not responding" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
-      <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" layoutX="25.0" layoutY="25.0" prefWidth="338.0" text="Select Sort Methods" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <ListView fx:id="listSortMethods" prefHeight="180.0" prefWidth="331.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </TitledPane>
-   </children>
+    <children>
+        <LineChart fx:id="lineChartSort" layoutX="385.0" layoutY="63.0" legendSide="RIGHT" title="Sorting results" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <xAxis>
+                <NumberAxis side="BOTTOM" fx:id="xAxis" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="yAxis" side="LEFT" />
+            </yAxis>
+        </LineChart>
+        <Separator layoutX="365.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <TitledPane alignment="CENTER" collapsible="false" layoutX="25.0" layoutY="237.0" prefHeight="333.0" prefWidth="338.0" text="Run sorting test" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="262.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="282.0" prefWidth="336.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Min value:" AnchorPane.leftAnchor="10.0" />
+                        <Spinner fx:id="spinMinVal" editable="true" layoutX="135.0" layoutY="9.0" AnchorPane.rightAnchor="10.0" />
+                        <Spinner fx:id="spinMaxVal" editable="true" layoutX="135.0" layoutY="47.0" AnchorPane.rightAnchor="10.0" />
+                        <Label layoutX="14.0" layoutY="52.0" text="Max value:" AnchorPane.leftAnchor="10.0" />
+                        <TextField fx:id="txtArrSizes" layoutX="135.0" layoutY="90.0" AnchorPane.rightAnchor="10.0" />
+                        <Label layoutX="14.0" layoutY="95.0" text="Array sizes:" AnchorPane.leftAnchor="10.0" />
+                        <CheckBox fx:id="checkSeed" layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#onCheckSeed" text="Use seed:" AnchorPane.leftAnchor="10.0" />
+                        <TextField fx:id="txtSeed" layoutX="135.0" layoutY="134.0" AnchorPane.rightAnchor="10.0" />
+                        <Button layoutX="247.0" layoutY="178.0" mnemonicParsing="false" onAction="#onBtnTestInt" text="Use int[]" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="10.0" />
+                        <Label fx:id="lblValidationErr" layoutX="34.0" layoutY="183.0" prefHeight="21.0" prefWidth="195.0" text=" " textFill="RED" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <ProgressBar layoutX="13.0" layoutY="219.0" prefHeight="23.0" prefWidth="303.0" progress="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Button layoutX="22.0" layoutY="178.0" mnemonicParsing="false" onAction="#OnButtonTestGenerics" text="Use T[]" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="160.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </TitledPane>
+        <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" layoutX="25.0" layoutY="25.0" prefWidth="338.0" text="Select Sort Methods" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <ListView fx:id="listSortMethods" prefHeight="180.0" prefWidth="331.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </TitledPane>
+    </children>
 </AnchorPane>
