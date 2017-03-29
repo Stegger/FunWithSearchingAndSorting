@@ -11,6 +11,7 @@ import funwithsearchingandsorting.gui.javafx.model.IntSortModel;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -88,6 +89,11 @@ public class SortViewController implements Initializable
         stageAndRunTest(DataType.INT);
     }
 
+    private void stageAndRunTestInParallel(DataType dataType)
+    {
+        
+    }
+    
     private void stageAndRunTest(DataType dataType)
     {
         try

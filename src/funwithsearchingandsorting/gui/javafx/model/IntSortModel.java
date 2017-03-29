@@ -8,9 +8,16 @@ package funwithsearchingandsorting.gui.javafx.model;
 import funwithsearchingandsorting.bll.facade.SortFacade;
 import funwithsearchingandsorting.bll.sorting.DataType;
 import funwithsearchingandsorting.bll.sorting.SortingAlgorithm;
+import funwithsearchingandsorting.gui.javafx.controller.SortTask;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 
@@ -58,6 +65,28 @@ public class IntSortModel
     public ObservableList<SortingAlgorithm> getSortingTypes()
     {
         return sortTypes;
+    }
+
+    public void performTestsInParallel(List<SortingAlgorithm> sortTypes, String arrsizes, int minVal, int maxVal, DataType dataType, int seed)
+    {
+        Executor exec = Executors.newCachedThreadPool();
+        BlockingQueue<Task> q = new LinkedBlockingQueue<>();
+        ExecutorCompletionService execCompSer = new ExecutorCompletionService(exec, q);
+
+        int[] lengths = sortFacade.getArrayLengthsFromInput(arrsizes);
+        chartData.clear();
+        for (SortingAlgorithm sortType : sortTypes)
+        {
+            XYChart.Series<Integer, Double> serie = new Series<>();
+            serie.setName(sortType.toString());
+            for (int n : lengths)
+            {
+                //TODO DO THIS
+                double time = sortFacade.getTimeToSort(sortType, n, minVal, maxVal, dataType, seed);
+                serie.getData().add(new XYChart.Data<>(n, time));
+            }
+            chartData.add(serie);
+        }
     }
 
     public void performTest(List<SortingAlgorithm> sortTypes, String arrsizes, int minVal, int maxVal, DataType dataType, int seed)
