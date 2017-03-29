@@ -8,13 +8,13 @@ package funwithsearchingandsorting.gui.javafx.controller;
 import funwithsearchingandsorting.bll.facade.SortFacade;
 import funwithsearchingandsorting.bll.sorting.DataType;
 import funwithsearchingandsorting.bll.sorting.SortingAlgorithm;
-import javafx.concurrent.Task;
+import java.util.concurrent.Callable;
 
 /**
  *
  * @author Stegger
  */
-public class SortTask extends Task<Double>
+public class SortTask implements Callable<Double>
 {
 
     private SortFacade sortFacade;
@@ -39,16 +39,32 @@ public class SortTask extends Task<Double>
     }
 
     @Override
-    protected Double call() throws Exception
+    public Double call() throws Exception
     {
         if (seed != 0)
         {
-            return sortFacade.getTimeToSort(sortType, n, minVal, maxVal, dataType);
+            return sortFacade.getTimeToSort(getSortType(), getN(), minVal, maxVal, dataType);
         }
         else
         {
-            return sortFacade.getTimeToSort(sortType, n, minVal, maxVal, dataType, seed);
+            return sortFacade.getTimeToSort(getSortType(), getN(), minVal, maxVal, dataType, seed);
         }
+    }
+
+    /**
+     * @return the sortType
+     */
+    public SortingAlgorithm getSortType()
+    {
+        return sortType;
+    }
+
+    /**
+     * @return the n
+     */
+    public int getN()
+    {
+        return n;
     }
 
 }

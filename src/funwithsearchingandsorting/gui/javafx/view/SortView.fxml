@@ -40,10 +40,10 @@
                         <Label layoutX="14.0" layoutY="95.0" text="Array sizes:" AnchorPane.leftAnchor="10.0" />
                         <CheckBox fx:id="checkSeed" layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#onCheckSeed" text="Use seed:" AnchorPane.leftAnchor="10.0" />
                         <TextField fx:id="txtSeed" layoutX="135.0" layoutY="134.0" AnchorPane.rightAnchor="10.0" />
-                        <Button layoutX="247.0" layoutY="178.0" mnemonicParsing="false" onAction="#onBtnTestInt" text="Use int[]" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="10.0" />
+                        <Button fx:id="btnTestIntegers" layoutX="247.0" layoutY="178.0" mnemonicParsing="false" onAction="#onBtnTestInt" text="Use int[]" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="10.0" />
                         <Label fx:id="lblValidationErr" layoutX="34.0" layoutY="183.0" prefHeight="21.0" prefWidth="195.0" text=" " textFill="RED" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <ProgressBar layoutX="13.0" layoutY="219.0" prefHeight="23.0" prefWidth="303.0" progress="0.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                        <Button layoutX="22.0" layoutY="178.0" mnemonicParsing="false" onAction="#OnButtonTestGenerics" text="Use T[]" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="160.0" />
+                        <Button fx:id="btnTestGenerics" layoutX="22.0" layoutY="178.0" mnemonicParsing="false" onAction="#OnButtonTestGenerics" text="Use T[]" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="160.0" />
                     </children>
                 </AnchorPane>
             </content>

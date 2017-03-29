@@ -11,7 +11,6 @@ import funwithsearchingandsorting.gui.javafx.model.IntSortModel;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -34,6 +34,10 @@ import javafx.scene.control.TextField;
 public class SortViewController implements Initializable
 {
 
+    @FXML
+    private Button btnTestGenerics;
+    @FXML
+    private Button btnTestIntegers;
     @FXML
     private LineChart<Integer, Double> lineChartSort;
     @FXML
@@ -75,6 +79,8 @@ public class SortViewController implements Initializable
         yAxis.setLabel("Seconds");
         ObservableList<Series<Integer, Double>> data = intModel.getChartData();
         lineChartSort.setData(data);
+        btnTestGenerics.disableProperty().bind(intModel.getIsProcessing());
+        btnTestIntegers.disableProperty().bind(intModel.getIsProcessing());
     }
 
     @FXML
@@ -89,11 +95,6 @@ public class SortViewController implements Initializable
         stageAndRunTest(DataType.INT);
     }
 
-    private void stageAndRunTestInParallel(DataType dataType)
-    {
-        
-    }
-    
     private void stageAndRunTest(DataType dataType)
     {
         try
