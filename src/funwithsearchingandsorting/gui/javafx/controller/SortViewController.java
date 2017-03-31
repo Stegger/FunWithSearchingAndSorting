@@ -7,11 +7,16 @@ package funwithsearchingandsorting.gui.javafx.controller;
 
 import funwithsearchingandsorting.bll.sorting.DataType;
 import funwithsearchingandsorting.bll.sorting.SortingAlgorithm;
-import funwithsearchingandsorting.gui.javafx.model.IntSortModel;
+import funwithsearchingandsorting.gui.javafx.model.SortModel;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -59,11 +64,11 @@ public class SortViewController implements Initializable
     @FXML
     private ListView<SortingAlgorithm> listSortMethods;
 
-    private IntSortModel intModel;
+    private SortModel intModel;
 
     public SortViewController()
     {
-        intModel = new IntSortModel();
+        intModel = new SortModel();
     }
 
     /**
@@ -79,8 +84,8 @@ public class SortViewController implements Initializable
         yAxis.setLabel("Seconds");
         ObservableList<Series<Integer, Double>> data = intModel.getChartData();
         lineChartSort.setData(data);
-        btnTestGenerics.disableProperty().bind(intModel.getIsProcessing());
-        btnTestIntegers.disableProperty().bind(intModel.getIsProcessing());
+        //btnTestGenerics.disableProperty().bind(intModel.getIsProcessing());
+        //btnTestIntegers.disableProperty().bind(intModel.getIsProcessing());
     }
 
     @FXML
@@ -92,7 +97,69 @@ public class SortViewController implements Initializable
     @FXML
     private void onBtnTestInt(ActionEvent event)
     {
-        stageAndRunTest(DataType.INT);
+        //stageAndRunTest(DataType.INT);
+        stageAndRunTestInParallel(DataType.INT);
+    }
+
+    private void switchBtnEnable(Button... buttons)
+    {
+        for (Button button : buttons)
+        {
+            button.setDisable(!button.isDisable());
+        }
+    }
+
+    private void stageAndRunTestInParallel(DataType dataType)
+    {
+        try
+        {
+            lblValidationErr.setText("");
+            String arrsizes = txtArrSizes.getText();
+            int minVal = Integer.parseInt(spinMinVal.getEditor().getText());
+            int maxVal = Integer.parseInt(spinMaxVal.getEditor().getText());
+            List<SortingAlgorithm> sortTypes = listSortMethods.getSelectionModel().getSelectedItems();
+            Runnable runner = null;
+            if (checkSeed.isSelected())
+            {
+                int seed = Integer.parseInt(txtSeed.getText().trim());
+                runner = ()
+                        -> 
+                        {
+                            try
+                            {
+                                intModel.performTestInParallel(sortTypes, arrsizes, minVal, maxVal, dataType, seed);
+                                
+                            } catch (Exception ex)
+                            {
+                                lblValidationErr.setText(ex.getMessage());
+                                ex.printStackTrace();
+                            }
+                            switchBtnEnable(btnTestGenerics, btnTestIntegers);
+                };
+            } else
+            {
+                runner = ()
+                        -> 
+                        {
+                            try
+                            {
+                                intModel.performTestInParallel(sortTypes, arrsizes, minVal, maxVal, dataType, 0);
+                                
+                            } catch (Exception ex)
+                            {
+                                lblValidationErr.setText(ex.getMessage());
+                                ex.printStackTrace();
+                            }
+                            switchBtnEnable(btnTestGenerics, btnTestIntegers);
+                };
+            }
+            Thread t = new Thread(runner);
+            switchBtnEnable(btnTestGenerics, btnTestIntegers);
+            t.start();
+        } catch (Exception ex)
+        {
+            lblValidationErr.setText(ex.getMessage());
+        }
     }
 
     private void stageAndRunTest(DataType dataType)
@@ -108,8 +175,7 @@ public class SortViewController implements Initializable
             {
                 int seed = Integer.parseInt(txtSeed.getText().trim());
                 intModel.performTest(sortTypes, arrsizes, minVal, maxVal, dataType, seed);
-            }
-            else
+            } else
             {
                 intModel.performTest(sortTypes, arrsizes, minVal, maxVal, dataType);
             }
@@ -122,7 +188,8 @@ public class SortViewController implements Initializable
     @FXML
     private void OnButtonTestGenerics(ActionEvent event)
     {
-        stageAndRunTest(DataType.GENERIC_OBJECT);
+        //stageAndRunTest(DataType.GENERIC_OBJECT);
+        stageAndRunTestInParallel(DataType.GENERIC_OBJECT);
     }
 
 }

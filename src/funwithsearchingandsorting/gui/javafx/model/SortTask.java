@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package funwithsearchingandsorting.gui.javafx.controller;
+package funwithsearchingandsorting.gui.javafx.model;
 
 import funwithsearchingandsorting.bll.facade.SortFacade;
 import funwithsearchingandsorting.bll.sorting.DataType;
@@ -14,13 +14,14 @@ import java.util.concurrent.Callable;
  *
  * @author Stegger
  */
-public class SortTask implements Callable<Double>
+public class SortTask implements Callable<SortTask>
 {
 
     private SortFacade sortFacade;
     private SortingAlgorithm sortType;
     private int n, minVal, maxVal, seed;
     private DataType dataType;
+    private Double timeToSort;
 
     public SortTask(SortFacade sortFacade, SortingAlgorithm sortType, int n, int minVal, int maxVal, DataType dataType, int seed)
     {
@@ -31,6 +32,7 @@ public class SortTask implements Callable<Double>
         this.maxVal = maxVal;
         this.seed = seed;
         this.dataType = dataType;
+        timeToSort = 0.0;
     }
 
     public SortTask(SortFacade sortFacade, SortingAlgorithm sortType, int n, int minVal, int maxVal, DataType dataType)
@@ -39,16 +41,16 @@ public class SortTask implements Callable<Double>
     }
 
     @Override
-    public Double call() throws Exception
+    public SortTask call() throws Exception
     {
         if (seed != 0)
         {
-            return sortFacade.getTimeToSort(getSortType(), getN(), minVal, maxVal, dataType);
-        }
-        else
+            timeToSort = sortFacade.getTimeToSort(getSortType(), getN(), minVal, maxVal, dataType);
+        } else
         {
-            return sortFacade.getTimeToSort(getSortType(), getN(), minVal, maxVal, dataType, seed);
+            timeToSort = sortFacade.getTimeToSort(getSortType(), getN(), minVal, maxVal, dataType, seed);
         }
+        return this;
     }
 
     /**
@@ -65,6 +67,11 @@ public class SortTask implements Callable<Double>
     public int getN()
     {
         return n;
+    }
+
+    public Double getTimeToSort()
+    {
+        return timeToSort;
     }
 
 }
